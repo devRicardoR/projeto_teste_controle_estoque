@@ -2,12 +2,11 @@ package com.duke.estoque;
 
 import java.io.*;
 import java.text.NumberFormat;
-import java.util.InputMismatchException;
-import java.util.Locale;
-import java.util.Scanner;
+import java.util.*;
 
 public class EstoqueApp {
     private static Estoque estoque = new Estoque();
+    private static List<Usuario> usuarios = new ArrayList<>(); // Lista para armazenar os usuários
     private static Scanner scanner = new Scanner(System.in);
     private static NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
 
@@ -39,6 +38,9 @@ public class EstoqueApp {
                     case 6:
                         carregarProdutos();
                         break;
+                    case 7:
+                        cadastrarUsuario();
+                        break;
                     case 0:
                         System.out.println("Saindo...");
                         break;
@@ -61,6 +63,7 @@ public class EstoqueApp {
         System.out.println("4. Listar produtos");
         System.out.println("5. Salvar produtos em arquivo");
         System.out.println("6. Carregar produtos de arquivo");
+        System.out.println("7. Cadastrar usuário"); // Opção de cadastro de usuário
         System.out.println("0. Sair");
         System.out.print("Escolha uma opção: ");
     }
@@ -146,5 +149,18 @@ public class EstoqueApp {
         String caminho = scanner.nextLine();
         estoque.carregarDeArquivo(caminho);
         System.out.println("Produtos carregados com sucesso!");
+    }
+
+    private static void cadastrarUsuario() {
+        System.out.print("Digite o nome do usuário: ");
+        String nome = scanner.nextLine();
+
+        System.out.print("Digite o email do usuário: ");
+        String email = scanner.nextLine();
+
+        Usuario usuario = new Usuario(nome, email);
+        usuarios.add(usuario);
+
+        System.out.println("Usuário cadastrado com sucesso!");
     }
 }
